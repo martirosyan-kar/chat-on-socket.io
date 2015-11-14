@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="login">
+    <div class="top">Live Chat</div>
+    <div id="body" class="body">
+        <form id="form-username" autocomplete="off">
+        <h3 class="title">username</h3>
+        <input id="chat-username" class="" type="text" value=""><br>
+        <button type="submit">Send</button>
+        </form>
+    </div>
+    <div id="chat" class="chat">
+        <ul id="messages"></ul>
+        <hr>
+        <form id="form-chat" action="" autocomplete="off">
+            <input id="message" autocomplete="off" />
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</div>
+
+
+
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+    var User = function() {
+        var username = '';
+        this.getUsername = function(){
+            console.log(username,'get');
+            return username;
+        }
+        this.setUsername = function(user){
+            console.log(user,'set');
+            username = user;
+        }
+    }
+    var user = new User();
+    var socket = io();
+    $('#form-chat').submit(function(){
+        socket.emit('messages', $('#message').val());
+        $('#message').val('');
+        return false;
+    });
+    socket.on('messages',function(message){
+        console.log(message);
+        $('#messages').append($('<li>').text(name+':'+message));
+    });
+
+    socket.on('connect',function(data){
+        if(user.getUsername() == '') {
+            $('.body').show();
+            $('.chat').hide();
+        }
+        else {
+            $('#messages').html('');
+            console.log('join');
+            socket.emit('join',user.getUsername());
+        }
+    });
+
+    $('#chat-username').focus();
+    $('#form-username').submit(function(e){
+        e.preventDefault();
+        var val = $('#chat-username').val();
+        if(val == '') {
+            return false;
+        }
+
+        user.setUsername(val);
+        $('.body').hide();
+        $('.chat').show();
+        user.getUsername();
+    });
+
+</script>
+</body>
+</html>

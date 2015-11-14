@@ -1,0 +1,50 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+#login {
+    z-index: 1000;
+    position: absolute;
+    bottom: 0;
+    right:50px;
+    width: 270px;
+    height: 300px;
+    display: block;
+    border: 1px solid #5BA0C8;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+}
+
+#login > div.top {
+    width: 100%;
+    height: 24px;
+    background-color: #5BA0C8;
+    color: #FFF;
+    padding: 5px 0px;
+}
+
+#login > div.body {
+    color: #000000;
+}
+#login > div.body > input {
+    border: none;
+    border-bottom: 2px solid #000000;
+    outline: none;
+    text-align: center;
+}
+
+#login > div.chat{
+    display: none;
+    padding: 5px;
+}
+ul {
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+    text-align: left;
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
