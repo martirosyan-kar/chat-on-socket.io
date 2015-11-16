@@ -33,11 +33,9 @@
     var User = function() {
         var username = '';
         this.getUsername = function(){
-            console.log(username,'get');
             return username;
         }
         this.setUsername = function(user){
-            console.log(user,'set');
             username = user;
         }
     }
@@ -48,21 +46,8 @@
         $('#message').val('');
         return false;
     });
-    socket.on('messages',function(message){
-        console.log(message);
-        $('#messages').append($('<li>').text(name+':'+message));
-    });
-
-    socket.on('connect',function(data){
-        if(user.getUsername() == '') {
-            $('.body').show();
-            $('.chat').hide();
-        }
-        else {
-            $('#messages').html('');
-            console.log('join');
-            socket.emit('join',user.getUsername());
-        }
+    socket.on('messages',function(data){
+        $('#messages').append($('<li>').text(data.name+':'+data.message));
     });
 
     $('#chat-username').focus();
@@ -72,11 +57,11 @@
         if(val == '') {
             return false;
         }
-
+        $('#messages').html('');
         user.setUsername(val);
+        socket.emit('join',user.getUsername());
         $('.body').hide();
         $('.chat').show();
-        user.getUsername();
     });
 
 </script>

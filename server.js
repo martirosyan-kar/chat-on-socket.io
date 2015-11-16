@@ -34,7 +34,7 @@ io.on('connection',function(socket){
         console.log(name);
         data = {name:name, message:message};
         socket.broadcast.emit("messages",data);
-        socket.emit("messages",data);
+        socket.emit("messages", data);
         storeMessage(name,message);
     });
 
